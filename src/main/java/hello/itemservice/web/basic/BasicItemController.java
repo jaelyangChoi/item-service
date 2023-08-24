@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -38,6 +36,18 @@ public class BasicItemController {
     @GetMapping("/add")
     public String addForm() {
         return "basic/addForm";
+    }
+
+    /**
+     * @ModelAttribute에는 한 가지 기능이 더 있는데,
+     * 바로 모델(Model)에 @ModelAttribute 로 지정한 객체를 자동으로 넣어주는 것이다.
+     * - key 값은 @ModelAttribute 에 지정한 name(value) 속성, 없으면 클래스명 첫자 소문자
+     */
+    @PostMapping("/add")
+    public String save(@ModelAttribute Item item, Model model) {
+        itemRepository.save(item);
+//        model.addAttribute("item", item); //@ModelAttribute가 자동으로 넣어준다!
+        return "/basic/item";
     }
 
     /**
