@@ -35,11 +35,17 @@ public class BasicItemController {
         return "/basic/item";
     }
 
+    @GetMapping("/add")
+    public String addForm() {
+        return "basic/addForm";
+    }
+
     /**
      * 테스트용 데이터 추가
      */
     @PostConstruct
     public void init() {
+
         itemRepository.save(new Item("itemA", 10000, 10));
         itemRepository.save(new Item("itemB", 20000, 20));
     }
